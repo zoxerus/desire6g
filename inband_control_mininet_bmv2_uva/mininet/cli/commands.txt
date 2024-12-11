@@ -1,0 +1,14 @@
+mirroring_add 128 1
+
+table_add MyIngress.congestion_detection MyIngress.check_switch0 1      => 50
+table_add MyIngress.congestion_detection MyIngress.check_switches0to1 2 => 50 50
+table_add MyIngress.congestion_detection MyIngress.check_switches0to2 3 => 50 50 50
+table_add MyIngress.congestion_detection MyIngress.check_switches0to3 4 => 50 50 50 50
+table_add MyIngress.congestion_detection MyIngress.check_switches0to4 5 => 50 50 50 50 50
+
+
+table_add MyIngress.inband_reroute MyIngress.trigger_reroute 0b00001&&&0b00001 => 2 100 10 0
+table_add MyIngress.inband_reroute MyIngress.trigger_reroute 0b00010&&&0b00010 => 2 200 20 0
+table_add MyIngress.inband_reroute MyIngress.trigger_reroute 0b00100&&&0b00100 => 2 300 30 0
+table_add MyIngress.inband_reroute MyIngress.trigger_reroute 0b01000&&&0b01000 => 2 400 40 0
+table_add MyIngress.inband_reroute MyIngress.trigger_reroute 0b10001&&&0b10000 => 2 500 50 0

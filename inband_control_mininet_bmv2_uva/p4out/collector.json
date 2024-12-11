@@ -1,0 +1,3608 @@
+{
+  "header_types" : [
+    {
+      "name" : "scalars_0",
+      "id" : 0,
+      "fields" : [
+        ["tmp", 32, false],
+        ["tmp_0", 5, false],
+        ["tmp_1", 8, false],
+        ["metadata.remaining_q_reports", 16, false],
+        ["metadata.congestion_bitmap", 5, false],
+        ["metadata.congested_swid", 16, false],
+        ["metadata.backup_port", 8, false],
+        ["_padding_0", 6, false]
+      ]
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "fields" : [
+        ["ingress_port", 9, false],
+        ["egress_spec", 9, false],
+        ["egress_port", 9, false],
+        ["instance_type", 32, false],
+        ["packet_length", 32, false],
+        ["enq_timestamp", 32, false],
+        ["enq_qdepth", 19, false],
+        ["deq_timedelta", 32, false],
+        ["deq_qdepth", 19, false],
+        ["ingress_global_timestamp", 48, false],
+        ["egress_global_timestamp", 48, false],
+        ["mcast_grp", 16, false],
+        ["egress_rid", 16, false],
+        ["checksum_error", 1, false],
+        ["parser_error", 32, false],
+        ["priority", 3, false],
+        ["_padding", 3, false]
+      ]
+    },
+    {
+      "name" : "hdr_ethernet_t",
+      "id" : 2,
+      "fields" : [
+        ["dst_mac", 48, false],
+        ["src_mac", 48, false],
+        ["ether_type", 16, false]
+      ]
+    },
+    {
+      "name" : "hdr_int_report_t",
+      "id" : 3,
+      "fields" : [
+        ["init_ttl", 8, false],
+        ["switch_id", 16, false],
+        ["hop_num", 8, false],
+        ["trust_swid", 16, false],
+        ["trust_level", 4, false],
+        ["count", 16, false],
+        ["padding", 12, false]
+      ]
+    },
+    {
+      "name" : "hdr_int_trigger_t",
+      "id" : 4,
+      "fields" : [
+        ["switch_id", 16, false],
+        ["bakup_port", 8, false]
+      ]
+    },
+    {
+      "name" : "hdr_ipv4_t",
+      "id" : 5,
+      "fields" : [
+        ["version", 4, false],
+        ["ihl", 4, false],
+        ["diffserv", 8, false],
+        ["total_len", 16, false],
+        ["identification", 16, false],
+        ["flags", 3, false],
+        ["frag_offset", 13, false],
+        ["ttl", 8, false],
+        ["protocol", 8, false],
+        ["hdr_checksum", 16, false],
+        ["src_ip", 32, false],
+        ["dst_ip", 32, false]
+      ]
+    },
+    {
+      "name" : "hdr_q_report_t",
+      "id" : 6,
+      "fields" : [
+        ["congestion_swid", 16, false],
+        ["q_length", 24, false],
+        ["q_delay", 32, false]
+      ]
+    }
+  ],
+  "headers" : [
+    {
+      "name" : "scalars",
+      "id" : 0,
+      "header_type" : "scalars_0",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "header_type" : "standard_metadata",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ethernet",
+      "id" : 2,
+      "header_type" : "hdr_ethernet_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "int_report",
+      "id" : 3,
+      "header_type" : "hdr_int_report_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "int_trigger",
+      "id" : 4,
+      "header_type" : "hdr_int_trigger_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ipv4",
+      "id" : 5,
+      "header_type" : "hdr_ipv4_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "q_reports[0]",
+      "id" : 6,
+      "header_type" : "hdr_q_report_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "q_reports[1]",
+      "id" : 7,
+      "header_type" : "hdr_q_report_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "q_reports[2]",
+      "id" : 8,
+      "header_type" : "hdr_q_report_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "q_reports[3]",
+      "id" : 9,
+      "header_type" : "hdr_q_report_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "q_reports[4]",
+      "id" : 10,
+      "header_type" : "hdr_q_report_t",
+      "metadata" : false,
+      "pi_omit" : true
+    }
+  ],
+  "header_stacks" : [
+    {
+      "name" : "q_reports",
+      "id" : 0,
+      "header_type" : "hdr_q_report_t",
+      "size" : 5,
+      "header_ids" : [6, 7, 8, 9, 10]
+    }
+  ],
+  "header_union_types" : [],
+  "header_unions" : [],
+  "header_union_stacks" : [],
+  "field_lists" : [
+    {
+      "id" : 1,
+      "name" : "field_list10",
+      "elements" : [
+        {
+          "type" : "field",
+          "value" : ["scalars", "metadata.congested_swid"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "metadata.backup_port"]
+        }
+      ]
+    }
+  ],
+  "errors" : [
+    ["NoError", 0],
+    ["PacketTooShort", 1],
+    ["NoMatch", 2],
+    ["StackOutOfBounds", 3],
+    ["HeaderTooShort", 4],
+    ["ParserTimeout", 5],
+    ["ParserInvalidArgument", 6]
+  ],
+  "enums" : [],
+  "parsers" : [
+    {
+      "name" : "parser",
+      "id" : 0,
+      "init_state" : "start",
+      "parse_states" : [
+        {
+          "name" : "start",
+          "id" : 0,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "field",
+                  "value" : ["scalars", "tmp"]
+                },
+                {
+                  "type" : "field",
+                  "value" : ["standard_metadata", "packet_length"]
+                }
+              ],
+              "op" : "set"
+            },
+            {
+              "parameters" : [
+                {
+                  "op" : "log_msg",
+                  "parameters" : [
+                    {
+                      "type" : "string",
+                      "value" : "length: {}"
+                    },
+                    {
+                      "type" : "parameters_vector",
+                      "value" : [
+                        {
+                          "type" : "field",
+                          "value" : ["scalars", "tmp"]
+                        }
+                      ]
+                    }
+                  ],
+                  "source_info" : {
+                    "filename" : "./p4src/collector.p4",
+                    "line" : 142,
+                    "column" : 8,
+                    "source_fragment" : "        log_msg(\\\"length: {}\\\",{standard_metadata.packet_length});"
+                  }
+                }
+              ],
+              "op" : "primitive"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ethernet"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0800",
+              "mask" : null,
+              "next_state" : "parse_ipv4_header"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x05dd",
+              "mask" : null,
+              "next_state" : "parse_int_report_header"
+            },
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_ipv4_header",
+          "id" : 1,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ipv4"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_int_report_header",
+          "id" : 2,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "op" : "log_msg",
+                  "parameters" : [
+                    {
+                      "type" : "string",
+                      "value" : "parsed INT report"
+                    },
+                    {
+                      "type" : "parameters_vector",
+                      "value" : {
+                      }
+                    }
+                  ],
+                  "source_info" : {
+                    "filename" : "./p4src/collector.p4",
+                    "line" : 157,
+                    "column" : 8,
+                    "source_fragment" : "        log_msg(\\\"parsed INT report\\\");"
+                  }
+                }
+              ],
+              "op" : "primitive"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "int_report"
+                }
+              ],
+              "op" : "extract"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "field",
+                  "value" : ["scalars", "metadata.remaining_q_reports"]
+                },
+                {
+                  "type" : "field",
+                  "value" : ["int_report", "count"]
+                }
+              ],
+              "op" : "set"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0000",
+              "mask" : null,
+              "next_state" : null
+            },
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : "parse_next_q_report"
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["int_report", "count"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_next_q_report",
+          "id" : 3,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "stack",
+                  "value" : "q_reports"
+                }
+              ],
+              "op" : "extract"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "field",
+                  "value" : ["scalars", "metadata.remaining_q_reports"]
+                },
+                {
+                  "type" : "expression",
+                  "value" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "+",
+                          "left" : {
+                            "type" : "field",
+                            "value" : ["scalars", "metadata.remaining_q_reports"]
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0xffff"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xffff"
+                      }
+                    }
+                  }
+                }
+              ],
+              "op" : "set"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0000",
+              "mask" : null,
+              "next_state" : null
+            },
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : "parse_next_q_report"
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.remaining_q_reports"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "parse_vsets" : [],
+  "deparsers" : [
+    {
+      "name" : "deparser",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 384,
+        "column" : 8,
+        "source_fragment" : "MyDeparser"
+      },
+      "order" : ["ethernet", "int_report", "q_reports[0]", "q_reports[1]", "q_reports[2]", "q_reports[3]", "q_reports[4]", "int_trigger", "ipv4"],
+      "primitives" : []
+    }
+  ],
+  "meter_arrays" : [],
+  "counter_arrays" : [
+    {
+      "name" : "MyIngress.trigger_counter",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 198,
+        "column" : 38,
+        "source_fragment" : "trigger_counter"
+      },
+      "size" : 1,
+      "is_direct" : false
+    },
+    {
+      "name" : "MyIngress.normal_counter",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 199,
+        "column" : 38,
+        "source_fragment" : "normal_counter"
+      },
+      "size" : 1,
+      "is_direct" : false
+    },
+    {
+      "name" : "MyIngress.total_counter",
+      "id" : 2,
+      "is_direct" : true,
+      "binding" : "MyIngress.inband_reroute",
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 200,
+        "column" : 41,
+        "source_fragment" : "total_counter"
+      }
+    }
+  ],
+  "register_arrays" : [
+    {
+      "name" : "MyIngress.reg_congestion_swid",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 196,
+        "column" : 28,
+        "source_fragment" : "reg_congestion_swid"
+      },
+      "size" : 5,
+      "bitwidth" : 16
+    }
+  ],
+  "calculations" : [
+    {
+      "name" : "calc",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 360,
+        "column" : 1,
+        "source_fragment" : "update_checksum( ..."
+      },
+      "algo" : "csum16",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["ipv4", "version"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "ihl"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "diffserv"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "total_len"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "identification"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "flags"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "frag_offset"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "ttl"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "protocol"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "src_ip"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "dst_ip"]
+        }
+      ]
+    }
+  ],
+  "learn_lists" : [],
+  "actions" : [
+    {
+      "name" : "NoAction",
+      "id" : 0,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 1,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 2,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "MyIngress.drop",
+      "id" : 3,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 205,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ipv4_forward",
+      "id" : 4,
+      "runtime_data" : [
+        {
+          "name" : "dst_mac",
+          "bitwidth" : 48
+        },
+        {
+          "name" : "port",
+          "bitwidth" : 9
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 1
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 209,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = port"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "src_mac"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ethernet", "dst_mac"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 210,
+            "column" : 8,
+            "source_fragment" : "hdr.ethernet.src_mac = hdr.ethernet.dst_mac"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "dst_mac"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 211,
+            "column" : 8,
+            "source_fragment" : "hdr.ethernet.dst_mac = dst_mac"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ipv4", "ttl"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["ipv4", "ttl"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0xff"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 212,
+            "column" : 8,
+            "source_fragment" : "hdr.ipv4.ttl = hdr.ipv4.ttl - 1"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.trigger_reroute",
+      "id" : 5,
+      "runtime_data" : [
+        {
+          "name" : "eif",
+          "bitwidth" : 9
+        },
+        {
+          "name" : "sw_ndx",
+          "bitwidth" : 32
+        },
+        {
+          "name" : "bport",
+          "bitwidth" : 8
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "count",
+          "parameters" : [
+            {
+              "type" : "counter_array",
+              "value" : "MyIngress.trigger_counter"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 231,
+            "column" : 8,
+            "source_fragment" : "trigger_counter.count(0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 232,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = eif"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congested_swid"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 1
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 233,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.read(meta.congested_swid, sw_ndx)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.backup_port"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 2
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 234,
+            "column" : 8,
+            "source_fragment" : "meta.backup_port = bport"
+          }
+        },
+        {
+          "op" : "clone_ingress_pkt_to_egress",
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x00000080"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x1"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 235,
+            "column" : 8,
+            "source_fragment" : "clone_preserving_field_list(CloneType.I2E, 128, 10)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.normal_forward",
+      "id" : 6,
+      "runtime_data" : [
+        {
+          "name" : "eif",
+          "bitwidth" : 9
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "count",
+          "parameters" : [
+            {
+              "type" : "counter_array",
+              "value" : "MyIngress.normal_counter"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 239,
+            "column" : 8,
+            "source_fragment" : "normal_counter.count(0)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 240,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = eif"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.check_switch0",
+      "id" : 7,
+      "runtime_data" : [
+        {
+          "name" : "t0",
+          "bitwidth" : 24
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1e"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "?",
+                              "left" : {
+                                "type" : "hexstr",
+                                "value" : "0x01"
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x00"
+                              },
+                              "cond" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "<",
+                                  "left" : {
+                                    "type" : "local",
+                                    "value" : 0
+                                  },
+                                  "right" : {
+                                    "type" : "field",
+                                    "value" : ["q_reports[0]", "q_length"]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 257,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[0:0] = (bit)(t0 < hdr.q_reports[0].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[0]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 258,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(0, hdr.q_reports[0].congestion_swid)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.check_switches0to1",
+      "id" : 8,
+      "runtime_data" : [
+        {
+          "name" : "t0",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t1",
+          "bitwidth" : 24
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1e"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "?",
+                              "left" : {
+                                "type" : "hexstr",
+                                "value" : "0x01"
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x00"
+                              },
+                              "cond" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "<",
+                                  "left" : {
+                                    "type" : "local",
+                                    "value" : 0
+                                  },
+                                  "right" : {
+                                    "type" : "field",
+                                    "value" : ["q_reports[0]", "q_length"]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 257,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[0:0] = (bit)(t0 < hdr.q_reports[0].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[0]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 258,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(0, hdr.q_reports[0].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1d"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 1
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[1]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x02"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 263,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[1:1] = (bit)(t1 < hdr.q_reports[1].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000001"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[1]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 264,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(1, hdr.q_reports[1].congestion_swid)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.check_switches0to2",
+      "id" : 9,
+      "runtime_data" : [
+        {
+          "name" : "t0",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t1",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t2",
+          "bitwidth" : 24
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1e"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "?",
+                              "left" : {
+                                "type" : "hexstr",
+                                "value" : "0x01"
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x00"
+                              },
+                              "cond" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "<",
+                                  "left" : {
+                                    "type" : "local",
+                                    "value" : 0
+                                  },
+                                  "right" : {
+                                    "type" : "field",
+                                    "value" : ["q_reports[0]", "q_length"]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 257,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[0:0] = (bit)(t0 < hdr.q_reports[0].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[0]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 258,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(0, hdr.q_reports[0].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1d"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 1
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[1]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x02"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 263,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[1:1] = (bit)(t1 < hdr.q_reports[1].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000001"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[1]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 264,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(1, hdr.q_reports[1].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1b"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 2
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[2]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x2"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x04"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 269,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[2:2] = (bit)(t2 < hdr.q_reports[2].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000002"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[2]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 270,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(2, hdr.q_reports[2].congestion_swid)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.check_switches0to3",
+      "id" : 10,
+      "runtime_data" : [
+        {
+          "name" : "t0",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t1",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t2",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t3",
+          "bitwidth" : 24
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1e"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "?",
+                              "left" : {
+                                "type" : "hexstr",
+                                "value" : "0x01"
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x00"
+                              },
+                              "cond" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "<",
+                                  "left" : {
+                                    "type" : "local",
+                                    "value" : 0
+                                  },
+                                  "right" : {
+                                    "type" : "field",
+                                    "value" : ["q_reports[0]", "q_length"]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 257,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[0:0] = (bit)(t0 < hdr.q_reports[0].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[0]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 258,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(0, hdr.q_reports[0].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1d"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 1
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[1]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x02"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 263,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[1:1] = (bit)(t1 < hdr.q_reports[1].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000001"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[1]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 264,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(1, hdr.q_reports[1].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1b"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 2
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[2]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x2"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x04"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 269,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[2:2] = (bit)(t2 < hdr.q_reports[2].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000002"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[2]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 270,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(2, hdr.q_reports[2].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x17"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 3
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[3]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x3"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x08"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 275,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[3:3] = (bit)(t3 < hdr.q_reports[3].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000003"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[3]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 276,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(3, hdr.q_reports[3].congestion_swid)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.check_switches0to4",
+      "id" : 11,
+      "runtime_data" : [
+        {
+          "name" : "t0",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t1",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t2",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t3",
+          "bitwidth" : 24
+        },
+        {
+          "name" : "t4",
+          "bitwidth" : 24
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1e"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "?",
+                              "left" : {
+                                "type" : "hexstr",
+                                "value" : "0x01"
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x00"
+                              },
+                              "cond" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "<",
+                                  "left" : {
+                                    "type" : "local",
+                                    "value" : 0
+                                  },
+                                  "right" : {
+                                    "type" : "field",
+                                    "value" : ["q_reports[0]", "q_length"]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x01"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 257,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[0:0] = (bit)(t0 < hdr.q_reports[0].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000000"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[0]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 258,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(0, hdr.q_reports[0].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1d"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 1
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[1]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x1"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x02"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 263,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[1:1] = (bit)(t1 < hdr.q_reports[1].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000001"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[1]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 264,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(1, hdr.q_reports[1].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x1b"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 2
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[2]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x2"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x04"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 269,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[2:2] = (bit)(t2 < hdr.q_reports[2].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000002"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[2]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 270,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(2, hdr.q_reports[2].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x17"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 3
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[3]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x3"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x08"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 275,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[3:3] = (bit)(t3 < hdr.q_reports[3].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000003"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[3]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 276,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(3, hdr.q_reports[3].congestion_swid)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["scalars", "metadata.congestion_bitmap"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0f"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "&",
+                      "left" : {
+                        "type" : "expression",
+                        "value" : {
+                          "op" : "&",
+                          "left" : {
+                            "type" : "expression",
+                            "value" : {
+                              "op" : "<<",
+                              "left" : {
+                                "type" : "expression",
+                                "value" : {
+                                  "op" : "&",
+                                  "left" : {
+                                    "type" : "expression",
+                                    "value" : {
+                                      "op" : "?",
+                                      "left" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x01"
+                                      },
+                                      "right" : {
+                                        "type" : "hexstr",
+                                        "value" : "0x00"
+                                      },
+                                      "cond" : {
+                                        "type" : "expression",
+                                        "value" : {
+                                          "op" : "<",
+                                          "left" : {
+                                            "type" : "local",
+                                            "value" : 4
+                                          },
+                                          "right" : {
+                                            "type" : "field",
+                                            "value" : ["q_reports[4]", "q_length"]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "right" : {
+                                    "type" : "hexstr",
+                                    "value" : "0x1f"
+                                  }
+                                }
+                              },
+                              "right" : {
+                                "type" : "hexstr",
+                                "value" : "0x4"
+                              }
+                            }
+                          },
+                          "right" : {
+                            "type" : "hexstr",
+                            "value" : "0x1f"
+                          }
+                        }
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x10"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 281,
+            "column" : 8,
+            "source_fragment" : "meta.congestion_bitmap[4:4] = (bit)(t4 < hdr.q_reports[4].q_length )"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.reg_congestion_swid"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00000004"
+            },
+            {
+              "type" : "field",
+              "value" : ["q_reports[4]", "congestion_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 282,
+            "column" : 8,
+            "source_fragment" : "reg_congestion_swid.write(4, hdr.q_reports[4].congestion_swid)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "collector311",
+      "id" : 12,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "log_msg",
+          "parameters" : [
+            {
+              "type" : "string",
+              "value" : "\n --\n -- table congestion applied  \n --\n --"
+            },
+            {
+              "type" : "parameters_vector",
+              "value" : {
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 311,
+            "column" : 16,
+            "source_fragment" : "                log_msg(\\\"\\n --\\n -- table congestion applied  \\n --\\n --\\\" );"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_0"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congestion_bitmap"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 312,
+            "column" : 66,
+            "source_fragment" : "                log_msg(\\\"\\n --\\n -- con_btimap: {}  \\n --\\n --\\\", {meta.congestion_bitmap} );"
+          }
+        },
+        {
+          "op" : "log_msg",
+          "parameters" : [
+            {
+              "type" : "string",
+              "value" : "\n --\n -- con_btimap: {}  \n --\n --"
+            },
+            {
+              "type" : "parameters_vector",
+              "value" : [
+                {
+                  "type" : "field",
+                  "value" : ["scalars", "tmp_0"]
+                }
+              ]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 312,
+            "column" : 16,
+            "source_fragment" : "                log_msg(\\\"\\n --\\n -- con_btimap: {}  \\n --\\n --\\\", {meta.congestion_bitmap} );"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "collector308",
+      "id" : 13,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "log_msg",
+          "parameters" : [
+            {
+              "type" : "string",
+              "value" : "\n --\n -- Report Valid \n --\n --"
+            },
+            {
+              "type" : "parameters_vector",
+              "value" : {
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 308,
+            "column" : 12,
+            "source_fragment" : "            log_msg(\\\"\\n --\\n -- Report Valid \\n --\\n --\\\");"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "collector305",
+      "id" : 14,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "log_msg",
+          "parameters" : [
+            {
+              "type" : "string",
+              "value" : "\n --\n -- INGRESS \n --\n --"
+            },
+            {
+              "type" : "parameters_vector",
+              "value" : {
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 305,
+            "column" : 8,
+            "source_fragment" : "        log_msg(\\\"\\n --\\n -- INGRESS \\n --\\n --\\\");"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "collector337",
+      "id" : 15,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "add_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "int_trigger"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 337,
+            "column" : 12,
+            "source_fragment" : "hdr.int_trigger.setValid()"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x05de"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 338,
+            "column" : 12,
+            "source_fragment" : "hdr.ethernet.ether_type = 1502"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["int_trigger", "switch_id"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.congested_swid"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 339,
+            "column" : 12,
+            "source_fragment" : "hdr.int_trigger.switch_id = meta.congested_swid"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_1"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.backup_port"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 341,
+            "column" : 53,
+            "source_fragment" : "            log_msg(\\\"\\n -- \\n bport: {} \\n -- \\n \\\", {meta.backup_port});"
+          }
+        },
+        {
+          "op" : "log_msg",
+          "parameters" : [
+            {
+              "type" : "string",
+              "value" : "\n -- \n bport: {} \n -- \n "
+            },
+            {
+              "type" : "parameters_vector",
+              "value" : [
+                {
+                  "type" : "field",
+                  "value" : ["scalars", "tmp_1"]
+                }
+              ]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 341,
+            "column" : 12,
+            "source_fragment" : "            log_msg(\\\"\\n -- \\n bport: {} \\n -- \\n \\\", {meta.backup_port});"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["int_trigger", "bakup_port"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.backup_port"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 343,
+            "column" : 12,
+            "source_fragment" : "hdr.int_trigger.bakup_port = meta.backup_port"
+          }
+        },
+        {
+          "op" : "remove_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "int_report"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 344,
+            "column" : 12,
+            "source_fragment" : "hdr.int_report.setInvalid()"
+          }
+        },
+        {
+          "op" : "remove_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "q_reports[0]"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 345,
+            "column" : 12,
+            "source_fragment" : "hdr.q_reports[0].setInvalid()"
+          }
+        },
+        {
+          "op" : "remove_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "q_reports[1]"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 346,
+            "column" : 12,
+            "source_fragment" : "hdr.q_reports[1].setInvalid()"
+          }
+        },
+        {
+          "op" : "remove_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "q_reports[2]"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 347,
+            "column" : 12,
+            "source_fragment" : "hdr.q_reports[2].setInvalid()"
+          }
+        },
+        {
+          "op" : "remove_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "q_reports[3]"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 348,
+            "column" : 12,
+            "source_fragment" : "hdr.q_reports[3].setInvalid()"
+          }
+        },
+        {
+          "op" : "remove_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "q_reports[4]"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 349,
+            "column" : 12,
+            "source_fragment" : "hdr.q_reports[4].setInvalid()"
+          }
+        }
+      ]
+    }
+  ],
+  "pipelines" : [
+    {
+      "name" : "ingress",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 192,
+        "column" : 8,
+        "source_fragment" : "MyIngress"
+      },
+      "init_table" : "tbl_collector305",
+      "tables" : [
+        {
+          "name" : "tbl_collector305",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 305,
+            "column" : 8,
+            "source_fragment" : "        log_msg(\\\"\\n --\\n -- INGRESS \\n --\\n --\\\");"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [14],
+          "actions" : ["collector305"],
+          "base_default_next" : "node_3",
+          "next_tables" : {
+            "collector305" : "node_3"
+          },
+          "default_entry" : {
+            "action_id" : 14,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_collector308",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 308,
+            "column" : 12,
+            "source_fragment" : "            log_msg(\\\"\\n --\\n -- Report Valid \\n --\\n --\\\");"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [13],
+          "actions" : ["collector308"],
+          "base_default_next" : "MyIngress.congestion_detection",
+          "next_tables" : {
+            "collector308" : "MyIngress.congestion_detection"
+          },
+          "default_entry" : {
+            "action_id" : 13,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "MyIngress.congestion_detection",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 286,
+            "column" : 10,
+            "source_fragment" : "congestion_detection"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.int_report.count",
+              "target" : ["int_report", "count"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [2, 7, 8, 9, 10, 11],
+          "actions" : ["NoAction", "MyIngress.check_switch0", "MyIngress.check_switches0to1", "MyIngress.check_switches0to2", "MyIngress.check_switches0to3", "MyIngress.check_switches0to4"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "__HIT__" : "tbl_collector311",
+            "__MISS__" : "node_8"
+          },
+          "default_entry" : {
+            "action_id" : 2,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "tbl_collector311",
+          "id" : 3,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 311,
+            "column" : 16,
+            "source_fragment" : "                log_msg(\\\"\\n --\\n -- table congestion applied  \\n --\\n --\\\" );"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [12],
+          "actions" : ["collector311"],
+          "base_default_next" : "MyIngress.inband_reroute",
+          "next_tables" : {
+            "collector311" : "MyIngress.inband_reroute"
+          },
+          "default_entry" : {
+            "action_id" : 12,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "MyIngress.inband_reroute",
+          "id" : 4,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 243,
+            "column" : 10,
+            "source_fragment" : "inband_reroute"
+          },
+          "key" : [
+            {
+              "match_type" : "ternary",
+              "name" : "meta.congestion_bitmap",
+              "target" : ["scalars", "metadata.congestion_bitmap"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "ternary",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : true,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [5, 6, 1],
+          "actions" : ["MyIngress.trigger_reroute", "MyIngress.normal_forward", "NoAction"],
+          "base_default_next" : "node_8",
+          "next_tables" : {
+            "MyIngress.trigger_reroute" : "node_8",
+            "MyIngress.normal_forward" : "node_8",
+            "NoAction" : "node_8"
+          },
+          "default_entry" : {
+            "action_id" : 1,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "MyIngress.ipv4_lpm",
+          "id" : 5,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 215,
+            "column" : 10,
+            "source_fragment" : "ipv4_lpm"
+          },
+          "key" : [
+            {
+              "match_type" : "lpm",
+              "name" : "hdr.ipv4.dst_ip",
+              "target" : ["ipv4", "dst_ip"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "lpm",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [4, 3, 0],
+          "actions" : ["MyIngress.ipv4_forward", "MyIngress.drop", "NoAction"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "MyIngress.ipv4_forward" : null,
+            "MyIngress.drop" : null,
+            "NoAction" : null
+          },
+          "default_entry" : {
+            "action_id" : 0,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_3",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 307,
+            "column" : 12,
+            "source_fragment" : "hdr.int_report.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["int_report", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "tbl_collector308",
+          "false_next" : "node_8"
+        },
+        {
+          "name" : "node_8",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 318,
+            "column" : 12,
+            "source_fragment" : "hdr.ipv4.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["ipv4", "$valid$"]
+              }
+            }
+          },
+          "false_next" : null,
+          "true_next" : "MyIngress.ipv4_lpm"
+        }
+      ]
+    },
+    {
+      "name" : "egress",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 329,
+        "column" : 8,
+        "source_fragment" : "MyEgress"
+      },
+      "init_table" : "node_12",
+      "tables" : [
+        {
+          "name" : "tbl_collector337",
+          "id" : 6,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 337,
+            "column" : 12,
+            "source_fragment" : "hdr.int_trigger.setValid(); ..."
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [15],
+          "actions" : ["collector337"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "collector337" : null
+          },
+          "default_entry" : {
+            "action_id" : 15,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_12",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "./p4src/collector.p4",
+            "line" : 336,
+            "column" : 12,
+            "source_fragment" : "standard_metadata.instance_type == 1"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["standard_metadata", "instance_type"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x00000001"
+              }
+            }
+          },
+          "false_next" : null,
+          "true_next" : "tbl_collector337"
+        }
+      ]
+    }
+  ],
+  "checksums" : [
+    {
+      "name" : "cksum",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/collector.p4",
+        "line" : 360,
+        "column" : 1,
+        "source_fragment" : "update_checksum( ..."
+      },
+      "target" : ["ipv4", "hdr_checksum"],
+      "type" : "generic",
+      "calculation" : "calc",
+      "verify" : false,
+      "update" : true,
+      "if_cond" : {
+        "type" : "expression",
+        "value" : {
+          "op" : "d2b",
+          "left" : null,
+          "right" : {
+            "type" : "field",
+            "value" : ["ipv4", "$valid$"]
+          }
+        }
+      }
+    }
+  ],
+  "force_arith" : [],
+  "extern_instances" : [],
+  "field_aliases" : [
+    [
+      "queueing_metadata.enq_timestamp",
+      ["standard_metadata", "enq_timestamp"]
+    ],
+    [
+      "queueing_metadata.enq_qdepth",
+      ["standard_metadata", "enq_qdepth"]
+    ],
+    [
+      "queueing_metadata.deq_timedelta",
+      ["standard_metadata", "deq_timedelta"]
+    ],
+    [
+      "queueing_metadata.deq_qdepth",
+      ["standard_metadata", "deq_qdepth"]
+    ],
+    [
+      "intrinsic_metadata.ingress_global_timestamp",
+      ["standard_metadata", "ingress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.egress_global_timestamp",
+      ["standard_metadata", "egress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.mcast_grp",
+      ["standard_metadata", "mcast_grp"]
+    ],
+    [
+      "intrinsic_metadata.egress_rid",
+      ["standard_metadata", "egress_rid"]
+    ],
+    [
+      "intrinsic_metadata.priority",
+      ["standard_metadata", "priority"]
+    ]
+  ],
+  "program" : "./p4out/collector.p4i",
+  "__meta__" : {
+    "version" : [2, 23],
+    "compiler" : "https://github.com/p4lang/p4c"
+  }
+}
