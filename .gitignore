@@ -1,5 +1,6 @@
 mainrepo
 mininet*
 !mininet_inc_demo
+!mininet_inc_demo/mininet
 figures
 telemetry
