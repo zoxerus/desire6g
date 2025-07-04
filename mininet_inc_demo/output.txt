@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/mnt/d/projects/desire6g/mininet_inc_demo/helper_scripts/send.py", line 180, in <module>
+    main()
+  File "/mnt/d/projects/desire6g/mininet_inc_demo/helper_scripts/send.py", line 168, in main
+    d6g = D6G_MAIN(serviceId=0x01, nextHeader=0x0800)
+  File "/usr/lib/python3/dist-packages/scapy/base_classes.py", line 266, in __call__
+    i.__init__(*args, **kargs)
+  File "/usr/lib/python3/dist-packages/scapy/packet.py", line 179, in __init__
+    raise AttributeError(fname)
+AttributeError: serviceId

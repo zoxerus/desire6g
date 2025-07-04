@@ -1,0 +1,1861 @@
+{
+  "header_types" : [
+    {
+      "name" : "scalars_0",
+      "id" : 0,
+      "fields" : [
+        ["tmp", 32, false],
+        ["metadata.latency", 48, false],
+        ["metadata.egress_processing", 8, false]
+      ]
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "fields" : [
+        ["ingress_port", 9, false],
+        ["egress_spec", 9, false],
+        ["egress_port", 9, false],
+        ["instance_type", 32, false],
+        ["packet_length", 32, false],
+        ["enq_timestamp", 32, false],
+        ["enq_qdepth", 19, false],
+        ["deq_timedelta", 32, false],
+        ["deq_qdepth", 19, false],
+        ["ingress_global_timestamp", 48, false],
+        ["egress_global_timestamp", 48, false],
+        ["mcast_grp", 16, false],
+        ["egress_rid", 16, false],
+        ["checksum_error", 1, false],
+        ["parser_error", 32, false],
+        ["priority", 3, false],
+        ["_padding", 3, false]
+      ]
+    },
+    {
+      "name" : "ethernet_t",
+      "id" : 2,
+      "fields" : [
+        ["dst_mac", 48, false],
+        ["src_mac", 48, false],
+        ["ether_type", 16, false]
+      ]
+    },
+    {
+      "name" : "sdn_int_t",
+      "id" : 3,
+      "fields" : [
+        ["sdn_label", 16, false],
+        ["original_ether_type", 16, false],
+        ["sdn_latency", 48, false]
+      ]
+    },
+    {
+      "name" : "sdn_inc_t",
+      "id" : 4,
+      "fields" : [
+        ["sdn_label", 16, false],
+        ["register_index", 9, false],
+        ["_reserved1", 3, false],
+        ["output_port", 9, false],
+        ["_reserved2", 3, false]
+      ]
+    },
+    {
+      "name" : "d6g_main_t",
+      "id" : 5,
+      "fields" : [
+        ["serviceId", 16, false],
+        ["locationId", 16, false],
+        ["hhFlag", 1, false],
+        ["_reserved", 7, false],
+        ["nextNF", 16, false],
+        ["nextHeader", 16, false]
+      ]
+    },
+    {
+      "name" : "ipv4_t",
+      "id" : 6,
+      "fields" : [
+        ["version", 4, false],
+        ["ihl", 4, false],
+        ["dscp", 6, false],
+        ["ecn", 2, false],
+        ["total_len", 16, false],
+        ["identification", 16, false],
+        ["flags", 3, false],
+        ["frag_offset", 13, false],
+        ["ttl", 8, false],
+        ["protocol", 8, false],
+        ["hdr_checksum", 16, false],
+        ["src_ip", 32, false],
+        ["dst_ip", 32, false]
+      ]
+    }
+  ],
+  "headers" : [
+    {
+      "name" : "scalars",
+      "id" : 0,
+      "header_type" : "scalars_0",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "header_type" : "standard_metadata",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ethernet",
+      "id" : 2,
+      "header_type" : "ethernet_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "sdn_int",
+      "id" : 3,
+      "header_type" : "sdn_int_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "sdn_inc",
+      "id" : 4,
+      "header_type" : "sdn_inc_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "d6g_main",
+      "id" : 5,
+      "header_type" : "d6g_main_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ipv4",
+      "id" : 6,
+      "header_type" : "ipv4_t",
+      "metadata" : false,
+      "pi_omit" : true
+    }
+  ],
+  "header_stacks" : [],
+  "header_union_types" : [],
+  "header_unions" : [],
+  "header_union_stacks" : [],
+  "field_lists" : [
+    {
+      "id" : 1,
+      "name" : "field_list1",
+      "elements" : [
+        {
+          "type" : "field",
+          "value" : ["scalars", "metadata.latency"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "metadata.egress_processing"]
+        }
+      ]
+    }
+  ],
+  "errors" : [
+    ["NoError", 0],
+    ["PacketTooShort", 1],
+    ["NoMatch", 2],
+    ["StackOutOfBounds", 3],
+    ["HeaderTooShort", 4],
+    ["ParserTimeout", 5],
+    ["ParserInvalidArgument", 6]
+  ],
+  "enums" : [],
+  "parsers" : [
+    {
+      "name" : "parser",
+      "id" : 0,
+      "init_state" : "start",
+      "parse_states" : [
+        {
+          "name" : "start",
+          "id" : 0,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ethernet"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x88b5",
+              "mask" : null,
+              "next_state" : "parse_sdn_int"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x88b6",
+              "mask" : null,
+              "next_state" : "parse_sdn_inc"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0xd6d6",
+              "mask" : null,
+              "next_state" : "parse_d6g_main"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0800",
+              "mask" : null,
+              "next_state" : "parse_ipv4"
+            },
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_sdn_int",
+          "id" : 1,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "sdn_int"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_sdn_inc",
+          "id" : 2,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "sdn_inc"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_d6g_main",
+          "id" : 3,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "d6g_main"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_ipv4",
+          "id" : 4,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ipv4"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "default",
+              "value" : null,
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        }
+      ]
+    }
+  ],
+  "parse_vsets" : [],
+  "deparsers" : [
+    {
+      "name" : "deparser",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 434,
+        "column" : 8,
+        "source_fragment" : "MyDeparser"
+      },
+      "order" : ["ethernet", "sdn_int", "sdn_inc", "d6g_main", "ipv4"],
+      "primitives" : []
+    }
+  ],
+  "meter_arrays" : [],
+  "counter_arrays" : [
+    {
+      "name" : "MyIngress.ct_int_added_from_ipv4",
+      "id" : 0,
+      "is_direct" : true,
+      "binding" : "MyIngress.tb_add_sdn_int_from_ipv4",
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 243,
+        "column" : 40,
+        "source_fragment" : "ct_int_added_from_ipv4"
+      }
+    },
+    {
+      "name" : "MyIngress.ct_int_added_from_d6gmain",
+      "id" : 1,
+      "is_direct" : true,
+      "binding" : "MyIngress.tb_add_sdn_int_from_d6gmain",
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 244,
+        "column" : 40,
+        "source_fragment" : "ct_int_added_from_d6gmain"
+      }
+    },
+    {
+      "name" : "MyIngress.ct_int_handled",
+      "id" : 2,
+      "is_direct" : true,
+      "binding" : "MyIngress.tb_sdn_int_handler",
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 245,
+        "column" : 40,
+        "source_fragment" : "ct_int_handled"
+      }
+    },
+    {
+      "name" : "MyIngress.ct_inc_handled",
+      "id" : 3,
+      "is_direct" : true,
+      "binding" : "MyIngress.tb_handle_inc",
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 246,
+        "column" : 40,
+        "source_fragment" : "ct_inc_handled"
+      }
+    }
+  ],
+  "register_arrays" : [
+    {
+      "name" : "MyIngress.rg_output_port",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 240,
+        "column" : 27,
+        "source_fragment" : "rg_output_port"
+      },
+      "size" : 512,
+      "bitwidth" : 9
+    }
+  ],
+  "calculations" : [
+    {
+      "name" : "calc",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 411,
+        "column" : 8,
+        "source_fragment" : "update_checksum( ..."
+      },
+      "algo" : "csum16",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["ipv4", "version"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "ihl"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "dscp"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "ecn"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "total_len"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "identification"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "flags"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "frag_offset"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "ttl"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "protocol"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "src_ip"]
+        },
+        {
+          "type" : "field",
+          "value" : ["ipv4", "dst_ip"]
+        }
+      ]
+    }
+  ],
+  "learn_lists" : [],
+  "actions" : [
+    {
+      "name" : "NoAction",
+      "id" : 0,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 1,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 2,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 3,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "MyIngress.ac_send_to_port",
+      "id" : 4,
+      "runtime_data" : [
+        {
+          "name" : "port_id",
+          "bitwidth" : 9
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 254,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = port_id"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ac_send_to_port",
+      "id" : 5,
+      "runtime_data" : [
+        {
+          "name" : "port_id",
+          "bitwidth" : 9
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 254,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = port_id"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ac_send_to_port",
+      "id" : 6,
+      "runtime_data" : [
+        {
+          "name" : "port_id",
+          "bitwidth" : 9
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 254,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = port_id"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ac_sdn_int_push",
+      "id" : 7,
+      "runtime_data" : [
+        {
+          "name" : "label",
+          "bitwidth" : 16
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "add_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "sdn_int"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 259,
+            "column" : 8,
+            "source_fragment" : "hdr.sdn_int.setValid()"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "sdn_label"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 260,
+            "column" : 8,
+            "source_fragment" : "hdr.sdn_int.sdn_label = label"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "original_ether_type"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 261,
+            "column" : 8,
+            "source_fragment" : "hdr.sdn_int.original_ether_type = hdr.ethernet.ether_type"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x88b5"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 27,
+            "column" : 34,
+            "source_fragment" : "0x88b5; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ac_sdn_int_push",
+      "id" : 8,
+      "runtime_data" : [
+        {
+          "name" : "label",
+          "bitwidth" : 16
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "add_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "sdn_int"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 259,
+            "column" : 8,
+            "source_fragment" : "hdr.sdn_int.setValid()"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "sdn_label"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 260,
+            "column" : 8,
+            "source_fragment" : "hdr.sdn_int.sdn_label = label"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "original_ether_type"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 261,
+            "column" : 8,
+            "source_fragment" : "hdr.sdn_int.original_ether_type = hdr.ethernet.ether_type"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x88b5"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 27,
+            "column" : 34,
+            "source_fragment" : "0x88b5; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ac_sdn_int_handle",
+      "id" : 9,
+      "runtime_data" : [
+        {
+          "name" : "register_index",
+          "bitwidth" : 32
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "sdn_latency"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "-",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["standard_metadata", "ingress_global_timestamp"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["sdn_int", "sdn_latency"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 297,
+            "column" : 8,
+            "source_fragment" : "hdr.sdn_int.sdn_latency = standard_metadata.ingress_global_timestamp - hdr.sdn_int.sdn_latency"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.rg_output_port"
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 298,
+            "column" : 8,
+            "source_fragment" : "rg_output_port.read(standard_metadata.egress_spec, register_index)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.egress_processing"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 43,
+            "column" : 29,
+            "source_fragment" : "1; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ac_sdn_int_pop",
+      "id" : 10,
+      "runtime_data" : [
+        {
+          "name" : "clone_session",
+          "bitwidth" : 32
+        },
+        {
+          "name" : "register_index",
+          "bitwidth" : 32
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "sdn_latency"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "-",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["standard_metadata", "ingress_global_timestamp"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["sdn_int", "sdn_latency"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 304,
+            "column" : 8,
+            "source_fragment" : "hdr.sdn_int.sdn_latency = standard_metadata.ingress_global_timestamp - hdr.sdn_int.sdn_latency"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.rg_output_port"
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 1
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 305,
+            "column" : 8,
+            "source_fragment" : "rg_output_port.read(standard_metadata.egress_spec, register_index)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.egress_processing"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x02"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 44,
+            "column" : 29,
+            "source_fragment" : "2; ..."
+          }
+        },
+        {
+          "op" : "clone_ingress_pkt_to_egress",
+          "parameters" : [
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x1"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 307,
+            "column" : 8,
+            "source_fragment" : "clone_preserving_field_list(CloneType.I2E, clone_session, 1)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ac_sdn_inc_update_register",
+      "id" : 11,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["sdn_inc", "register_index"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 327,
+            "column" : 30,
+            "source_fragment" : "(bit<32>) hdr.sdn_inc.register_index"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.rg_output_port"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["sdn_inc", "output_port"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 327,
+            "column" : 8,
+            "source_fragment" : "rg_output_port.write( (bit<32>) hdr.sdn_inc.register_index, hdr.sdn_inc.output_port)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.ac_sdn_inc_forward",
+      "id" : 12,
+      "runtime_data" : [
+        {
+          "name" : "register_index",
+          "bitwidth" : 32
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.rg_output_port"
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 331,
+            "column" : 8,
+            "source_fragment" : "rg_output_port.read(standard_metadata.egress_spec, register_index)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "inc_switch384",
+      "id" : 13,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "exit",
+          "parameters" : [],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 384,
+            "column" : 55,
+            "source_fragment" : "exit"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "inc_switch387",
+      "id" : 14,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "sdn_latency"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "-",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["standard_metadata", "egress_global_timestamp"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["sdn_int", "sdn_latency"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 387,
+            "column" : 16,
+            "source_fragment" : "hdr.sdn_int.sdn_latency = ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "inc_switch392",
+      "id" : 15,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "ether_type"]
+            },
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "original_ether_type"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 392,
+            "column" : 16,
+            "source_fragment" : "hdr.ethernet.ether_type = hdr.sdn_int.original_ether_type"
+          }
+        },
+        {
+          "op" : "remove_header",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "sdn_int"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 393,
+            "column" : 16,
+            "source_fragment" : "hdr.sdn_int.setInvalid()"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "inc_switch397",
+      "id" : 16,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["sdn_int", "sdn_latency"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "-",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["standard_metadata", "egress_global_timestamp"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["sdn_int", "sdn_latency"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 397,
+            "column" : 16,
+            "source_fragment" : "hdr.sdn_int.sdn_latency = ..."
+          }
+        },
+        {
+          "op" : "truncate",
+          "parameters" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x00000018"
+            }
+          ],
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 400,
+            "column" : 16,
+            "source_fragment" : "truncate(REPORT_TRUNCATE_LENGTH)"
+          }
+        }
+      ]
+    }
+  ],
+  "pipelines" : [
+    {
+      "name" : "ingress",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 226,
+        "column" : 8,
+        "source_fragment" : "MyIngress"
+      },
+      "init_table" : "node_2",
+      "tables" : [
+        {
+          "name" : "MyIngress.tb_add_sdn_int_from_d6gmain",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 280,
+            "column" : 10,
+            "source_fragment" : "tb_add_sdn_int_from_d6gmain"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.d6g_main.serviceId",
+              "target" : ["d6g_main", "serviceId"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : true,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [8, 5, 1],
+          "actions" : ["MyIngress.ac_sdn_int_push", "MyIngress.ac_send_to_port", "NoAction"],
+          "base_default_next" : "node_8",
+          "next_tables" : {
+            "MyIngress.ac_sdn_int_push" : "node_8",
+            "MyIngress.ac_send_to_port" : "node_8",
+            "NoAction" : "node_8"
+          },
+          "default_entry" : {
+            "action_id" : 1,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "MyIngress.tb_add_sdn_int_from_ipv4",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 266,
+            "column" : 10,
+            "source_fragment" : "tb_add_sdn_int_from_ipv4"
+          },
+          "key" : [
+            {
+              "match_type" : "lpm",
+              "name" : "hdr.ipv4.dst_ip",
+              "target" : ["ipv4", "dst_ip"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "lpm",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : true,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [7, 4, 0],
+          "actions" : ["MyIngress.ac_sdn_int_push", "MyIngress.ac_send_to_port", "NoAction"],
+          "base_default_next" : "node_8",
+          "next_tables" : {
+            "MyIngress.ac_sdn_int_push" : "node_8",
+            "MyIngress.ac_send_to_port" : "node_8",
+            "NoAction" : "node_8"
+          },
+          "default_entry" : {
+            "action_id" : 0,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "MyIngress.tb_handle_inc",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 335,
+            "column" : 10,
+            "source_fragment" : "tb_handle_inc"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.sdn_inc.sdn_label",
+              "target" : ["sdn_inc", "sdn_label"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : true,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [11, 12, 3],
+          "actions" : ["MyIngress.ac_sdn_inc_update_register", "MyIngress.ac_sdn_inc_forward", "NoAction"],
+          "base_default_next" : "node_8",
+          "next_tables" : {
+            "MyIngress.ac_sdn_inc_update_register" : "node_8",
+            "MyIngress.ac_sdn_inc_forward" : "node_8",
+            "NoAction" : "node_8"
+          },
+          "default_entry" : {
+            "action_id" : 3,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "MyIngress.tb_sdn_int_handler",
+          "id" : 3,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 310,
+            "column" : 10,
+            "source_fragment" : "tb_sdn_int_handler"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.sdn_int.sdn_label",
+              "target" : ["sdn_int", "sdn_label"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : true,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [9, 10, 6, 2],
+          "actions" : ["MyIngress.ac_sdn_int_handle", "MyIngress.ac_sdn_int_pop", "MyIngress.ac_send_to_port", "NoAction"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "MyIngress.ac_sdn_int_handle" : null,
+            "MyIngress.ac_sdn_int_pop" : null,
+            "MyIngress.ac_send_to_port" : null,
+            "NoAction" : null
+          },
+          "default_entry" : {
+            "action_id" : 2,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_2",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 356,
+            "column" : 13,
+            "source_fragment" : "hdr.d6g_main.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["d6g_main", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "MyIngress.tb_add_sdn_int_from_d6gmain",
+          "false_next" : "node_4"
+        },
+        {
+          "name" : "node_4",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 358,
+            "column" : 20,
+            "source_fragment" : "hdr.ipv4.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["ipv4", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "MyIngress.tb_add_sdn_int_from_ipv4",
+          "false_next" : "node_6"
+        },
+        {
+          "name" : "node_6",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 360,
+            "column" : 20,
+            "source_fragment" : "hdr.sdn_inc.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["sdn_inc", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "MyIngress.tb_handle_inc",
+          "false_next" : "node_8"
+        },
+        {
+          "name" : "node_8",
+          "id" : 3,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 366,
+            "column" : 13,
+            "source_fragment" : "hdr.sdn_int.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["sdn_int", "$valid$"]
+              }
+            }
+          },
+          "false_next" : null,
+          "true_next" : "MyIngress.tb_sdn_int_handler"
+        }
+      ]
+    },
+    {
+      "name" : "egress",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 379,
+        "column" : 8,
+        "source_fragment" : "MyEgress"
+      },
+      "init_table" : "node_12",
+      "tables" : [
+        {
+          "name" : "tbl_inc_switch384",
+          "id" : 4,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 384,
+            "column" : 55,
+            "source_fragment" : "exit"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [13],
+          "actions" : ["inc_switch384"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "inc_switch384" : null
+          },
+          "default_entry" : {
+            "action_id" : 13,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_inc_switch387",
+          "id" : 5,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 387,
+            "column" : 40,
+            "source_fragment" : "="
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [14],
+          "actions" : ["inc_switch387"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "inc_switch387" : null
+          },
+          "default_entry" : {
+            "action_id" : 14,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_inc_switch392",
+          "id" : 6,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 392,
+            "column" : 40,
+            "source_fragment" : "= hdr.sdn_int.original_ether_type; ..."
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [15],
+          "actions" : ["inc_switch392"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "inc_switch392" : null
+          },
+          "default_entry" : {
+            "action_id" : 15,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "tbl_inc_switch397",
+          "id" : 7,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 397,
+            "column" : 40,
+            "source_fragment" : "= ..."
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [16],
+          "actions" : ["inc_switch397"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "inc_switch397" : null
+          },
+          "default_entry" : {
+            "action_id" : 16,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_12",
+          "id" : 4,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 384,
+            "column" : 18,
+            "source_fragment" : "meta.egress_processing == EP_SKIP"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.egress_processing"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x00"
+              }
+            }
+          },
+          "true_next" : "tbl_inc_switch384",
+          "false_next" : "node_14"
+        },
+        {
+          "name" : "node_14",
+          "id" : 5,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 386,
+            "column" : 23,
+            "source_fragment" : "meta.egress_processing == EP_INT_NORMAL"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["scalars", "metadata.egress_processing"]
+              },
+              "right" : {
+                "type" : "hexstr",
+                "value" : "0x01"
+              }
+            }
+          },
+          "true_next" : "tbl_inc_switch387",
+          "false_next" : "node_16"
+        },
+        {
+          "name" : "node_16",
+          "id" : 6,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 391,
+            "column" : 24,
+            "source_fragment" : "meta.egress_processing == EP_INT_CLONED && (standard_metadata.instance_type == BMV2_V1MODEL_INSTANCE_TYPE_NORMAL)"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "and",
+              "left" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "==",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["scalars", "metadata.egress_processing"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0x02"
+                  }
+                }
+              },
+              "right" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "==",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["standard_metadata", "instance_type"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0x00000000"
+                  }
+                }
+              }
+            }
+          },
+          "true_next" : "tbl_inc_switch392",
+          "false_next" : "node_18"
+        },
+        {
+          "name" : "node_18",
+          "id" : 7,
+          "source_info" : {
+            "filename" : "./p4src/inc_switch.p4",
+            "line" : 396,
+            "column" : 23,
+            "source_fragment" : "meta.egress_processing == EP_INT_CLONED && (standard_metadata.instance_type == BMV2_V1MODEL_INSTANCE_TYPE_INGRESS_CLONE)"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "and",
+              "left" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "==",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["scalars", "metadata.egress_processing"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0x02"
+                  }
+                }
+              },
+              "right" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "==",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["standard_metadata", "instance_type"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0x00000001"
+                  }
+                }
+              }
+            }
+          },
+          "false_next" : null,
+          "true_next" : "tbl_inc_switch397"
+        }
+      ]
+    }
+  ],
+  "checksums" : [
+    {
+      "name" : "cksum",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "./p4src/inc_switch.p4",
+        "line" : 411,
+        "column" : 8,
+        "source_fragment" : "update_checksum( ..."
+      },
+      "target" : ["ipv4", "hdr_checksum"],
+      "type" : "generic",
+      "calculation" : "calc",
+      "verify" : false,
+      "update" : true,
+      "if_cond" : {
+        "type" : "expression",
+        "value" : {
+          "op" : "d2b",
+          "left" : null,
+          "right" : {
+            "type" : "field",
+            "value" : ["ipv4", "$valid$"]
+          }
+        }
+      }
+    }
+  ],
+  "force_arith" : [],
+  "extern_instances" : [],
+  "field_aliases" : [
+    [
+      "queueing_metadata.enq_timestamp",
+      ["standard_metadata", "enq_timestamp"]
+    ],
+    [
+      "queueing_metadata.enq_qdepth",
+      ["standard_metadata", "enq_qdepth"]
+    ],
+    [
+      "queueing_metadata.deq_timedelta",
+      ["standard_metadata", "deq_timedelta"]
+    ],
+    [
+      "queueing_metadata.deq_qdepth",
+      ["standard_metadata", "deq_qdepth"]
+    ],
+    [
+      "intrinsic_metadata.ingress_global_timestamp",
+      ["standard_metadata", "ingress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.egress_global_timestamp",
+      ["standard_metadata", "egress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.mcast_grp",
+      ["standard_metadata", "mcast_grp"]
+    ],
+    [
+      "intrinsic_metadata.egress_rid",
+      ["standard_metadata", "egress_rid"]
+    ],
+    [
+      "intrinsic_metadata.priority",
+      ["standard_metadata", "priority"]
+    ]
+  ],
+  "program" : "./p4out/inc_switch.p4i",
+  "__meta__" : {
+    "version" : [2, 23],
+    "compiler" : "https://github.com/p4lang/p4c"
+  }
+}

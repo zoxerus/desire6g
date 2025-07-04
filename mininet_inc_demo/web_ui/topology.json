@@ -1,0 +1,25 @@
+[
+    {
+        "data": {
+            "id": "sw1",
+            "icon": "sw.png",
+            "label": "Switch 1",
+            "type": "switch",
+            "ip": "192.168.1.2"
+        }
+    },
+    {
+        "data": {
+            "id": "sv1",
+            "label": "Server 1",
+            "type": "server",
+            "ip": "192.168.1.10"
+        }
+    },
+    {
+        "data": {
+            "source": "sw1",
+            "target": "sv1"
+        }
+    }
+]

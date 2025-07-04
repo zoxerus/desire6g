@@ -1,5 +1,5 @@
 mainrepo
-mininet_d6g_demo_final
 mininet*
+!mininet_inc_demo
 figures
 telemetry

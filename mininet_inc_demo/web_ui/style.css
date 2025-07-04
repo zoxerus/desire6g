@@ -1,0 +1,20 @@
+#nodeInfo {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-top: 10px;
+    width: 500px;
+    position: absolute;
+    right: 10px;
+    top: 100px;
+}
+
+
+
+#cy {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    height: 1000px;
+
+
+  }
