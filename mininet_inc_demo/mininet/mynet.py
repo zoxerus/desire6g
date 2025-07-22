@@ -90,30 +90,36 @@ class MyTopo(Topo):
                             )
 
 
-        h1 = self.addHost('h1',
-                            ip = "10.0.0.1/24",
-                            mac = '00:00:00:00:00:01')
+        # h1 = self.addHost('h1',
+        #                     ip = "10.0.0.1/24",
+        #                     mac = '00:00:00:00:00:01')
         
         
-        h4 = self.addHost('h4',
-                            ip = "10.0.0.4/24",
-                            mac = '00:00:00:00:00:04')
+        # h4 = self.addHost('h4',
+        #                     ip = "10.0.0.4/24",
+        #                     mac = '00:00:00:00:00:04')
         
         
-        h5 = self.addHost('h5',
-                    ip = "10.0.0.5/24",
-                    mac = '00:00:00:00:00:05')
+        # h5 = self.addHost('h5',
+        #             ip = "10.0.0.5/24",
+        #             mac = '00:00:00:00:00:05')
 
-        self.addLink(s1, h1, 1, 0)
-        self.addLink(s4, h4, 4, 0)
+        # self.addLink(s1, h1, 1, 0)
+        # self.addLink(s4, h4, 4, 0)
+        # self.addLink(s4, h5, 5, 0)
+        
+        # TOPOLOGY
+        #     [S3]
+        #     /  \
+        #  [S1]  [S4]
+        #     \  /
+        #     [S2]
+
+
         self.addLink(s1, s2, 2, 1)
         self.addLink(s2, s4, 4, 2)
         self.addLink(s1, s3, 3, 1)
         self.addLink(s3, s4, 4, 3)
-        self.addLink(s4, h5, 5, 0)
-        
-        
-        
         
 def main():
 
@@ -135,13 +141,13 @@ def main():
     print('Starting Mininet')
     net.start()
 
-    h1 = net.get('h1')
-    h1.setDefaultRoute("dev eth0")
-    h1.describe()
+    # h1 = net.get('h1')
+    # h1.setDefaultRoute("dev eth0")
+    # h1.describe()
 
-    h4 = net.get('h4')
-    h4.setDefaultRoute("dev eth0 ")
-    h4.describe()    
+    # h4 = net.get('h4')
+    # h4.setDefaultRoute("dev eth0 ")
+    # h4.describe()    
     
     
     print('\n')

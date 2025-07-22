@@ -8,8 +8,8 @@ typedef bit<32>  IPv4Address;
 #define ETHERTYPE_VLAN 16w0x8100 // IEEE 802.1Q
 #define ETHERTYPE_IPV4 16w0x0800
 #define ETHERTYPE_IPV6 16w0x86DD
-#define ETHERTYPE_D6G  16w0xD6D6
-#define ETHERTYPE_D6GINT  16w0xD6D7
+#define ETHERTYPE_D6G 16w0xD6D6
+#define ETHERTYPE_D6GINT 16w0xD6D7
 
 
 struct empty_t {}
@@ -46,8 +46,6 @@ header d6gmain_t {
 }
 
 header d6gint_t {
-   bit<16> nextHeader;	// identifier of the next header elements
-   bit<8>  count;
    bit<64> t1; // timestamp 
    bit<64> t2; // timestamp
    bit<64> t3; // timestamp
@@ -145,7 +143,11 @@ control ingress(inout headers hdr,
         send_to_port(ostd, egress_port);
     }
 
-    table tbl_fwd {
+    action do_add_d6g_header(PortId_t egress_port) {
+        send_to_port(ostd, egress_port);
+    }
+
+    table tbl_d6g_fwd {
         key = {
             hdr.d6gmain.serviceId : exact;
             hdr.d6gmain.nextNF:     exact;
@@ -156,8 +158,19 @@ control ingress(inout headers hdr,
         size = 100;
     }
 
+    table tbl_ipv4_fwd {
+        key = {
+            hdr.ipv4.dst_ip: lpm;
+        }
+        actions = { do_forward; do_add_d6g_header; NoAction; }
+        default_action = NoAction;
+        size = 100;
+    }
+
+
     apply {
-        tbl_fwd.apply();
+        if (hdr.ipv4.isValid()) tbl_ipv4_fwd.apply();
+        else if (hdr.d6gmain.isValid()) tbl_d6g_fwd.apply();
     }
 }
 
