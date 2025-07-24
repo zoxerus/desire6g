@@ -143,9 +143,23 @@ control ingress(inout headers hdr,
         send_to_port(ostd, egress_port);
     }
 
-    action do_add_d6g_header(PortId_t egress_port) {
+    action do_add_d6g_header( 
+                PortId_t egress_port, 
+                bit<16> serviceId, 
+                bit<16> locationId, 
+                bit<1> hhFlag,
+                bit<16> nextNF
+    ) {
+        hdr.d6gmain.setValid();
+        hdr.d6gmain.serviceId = serviceId;
+        hdr.d6gmain.locationId = locationId;
+        hdr.d6gmain.hhFlag = hhFlag;
+        hdr._reserved = 0;
+        hdr.d6gmain.nextNF = nextNF;
+        hdr.d6gmain.nextHeader = hdr.ethernet.ether_type;
         send_to_port(ostd, egress_port);
     }
+
 
     table tbl_d6g_fwd {
         key = {
@@ -170,7 +184,7 @@ control ingress(inout headers hdr,
 
     apply {
         if (hdr.ipv4.isValid()) tbl_ipv4_fwd.apply();
-        else if (hdr.d6gmain.isValid()) tbl_d6g_fwd.apply();
+        if (hdr.d6gmain.isValid()) tbl_d6g_fwd.apply();
     }
 }
 

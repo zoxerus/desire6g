@@ -66,8 +66,9 @@ do
     # '^$' : Matches empty lines (start of line followed immediately by end of line).
     # '^#' : Matches lines that start with a '#' symbol.
     # The '>' redirects the filtered output to the new destination file.
-    grep -v -e '^$' -e '^#' "$file" > "$dest_file"
+    grep -v -e '^[[:space:]]*$' -e '^#' "$file" > "$dest_file"
 
+    
     echo -e "\n\n\nRunning Commands in $filename_only: \n"
     python3 $PATH_CLI --thrift-port 909$number < $dest_file
 

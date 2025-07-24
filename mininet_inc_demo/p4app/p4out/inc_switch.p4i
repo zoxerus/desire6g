@@ -1162,7 +1162,7 @@ control MyIngress(inout headers hdr,
 
     table tb_add_sdn_int_from_d6gmain {
         key = {
-            hdr.d6g_main.serviceId: exact;
+            hdr.d6g_main.nextNF: exact;
         }
         actions = {
             ac_sdn_int_push;
