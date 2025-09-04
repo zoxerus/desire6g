@@ -154,7 +154,7 @@ control ingress(inout headers hdr,
         hdr.d6gmain.serviceId = serviceId;
         hdr.d6gmain.locationId = locationId;
         hdr.d6gmain.hhFlag = hhFlag;
-        hdr._reserved = 0;
+        hdr.d6gmain._reserved = 0;
         hdr.d6gmain.nextNF = nextNF;
         hdr.d6gmain.nextHeader = hdr.ethernet.ether_type;
         send_to_port(ostd, egress_port);
