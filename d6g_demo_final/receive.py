@@ -33,13 +33,20 @@ class D6G_MAIN(Packet):
 #    def extract_padding(self, s):
 #        return '', s
 
+class D6G_BITFIELD(BitField):
+    def i2repr(self, pkt, x):
+        # Custom representation logic
+        y = x << 16
+        return f"{y}"
+
+
 class D6G_INT(Packet):
     name= "D6G_INT"
     fields_desc = [
         BitField(name='nextHeader', default= 0, size=16),
         BitField(name='t1', default= 0, size=48),
-        BitField(name='t2', default= 0, size=48),
-        BitField(name='t3', default= 0, size=48)
+        D6G_BITFIELD(name='t2', default= 0, size=32),
+        D6G_BITFIELD(name='t3', default= 0, size=32)
     ]
 #    def extract_padding(self, s):
 #        return '', s

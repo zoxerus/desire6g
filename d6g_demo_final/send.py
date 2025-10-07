@@ -40,9 +40,9 @@ class D6G_INT(Packet):
     name= "D6G_INT"
     fields_desc = [
         BitField(name='nextHeader', default= 0, size=16),
-        BitField(name='t1', default= 0, size=48),
-        BitField(name='t2', default= 0, size=48),
-        BitField(name='t3', default= 0, size=48)
+        BitField(name='t1', default= 0, size=32),
+        BitField(name='t2', default= 0, size=32),
+        BitField(name='t3', default= 0, size=32)
     ]
 #    def extract_padding(self, s):
 #        return '', s

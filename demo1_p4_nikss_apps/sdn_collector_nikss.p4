@@ -13,7 +13,7 @@ typedef bit<32>  IPv4Address;
 
 // Constants for Ethernet types
 const bit<16> ETHERTYPE_INT_MD = 0x88b5;        // reserved by IEEE for experimental protocols
-const bit<16> ETHERTYPE_INT_CTRL = 0x88b5;      // reserved by IEEE for experimental protocols
+const bit<16> ETHERTYPE_INT_CTRL = 0x88b6;      // reserved by IEEE for experimental protocols
 const bit<16> ETHERTYPE_IPV4    = 0x800 ;       // IPv4 protocol
 
 // Constants for L4 Protocols

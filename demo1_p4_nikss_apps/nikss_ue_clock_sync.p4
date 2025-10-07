@@ -10,6 +10,7 @@ typedef bit<32>  IPv4Address;
 #define ETHERTYPE_IPV6 16w0x86DD
 #define ETHERTYPE_D6G 16w0xD6D6
 #define ETHERTYPE_D6GINT 16w0xDF01
+#define ETHERTYPE_CLOCK_SYNC 16w0xDF02
 
 
 struct empty_t {}
@@ -20,6 +21,14 @@ header ethernet_t {
     bit<16> ether_type;
 }
 
+
+header clock_sync_h {
+    bit<8> count;
+    bit<32> t0;
+    bit<32> t1;
+    bit<32> t2;
+    bit<32> t3;
+}
 
 header ipv4_t {
     bit<4>  version;
@@ -47,12 +56,15 @@ header d6gmain_t {
 
 header d6gint_t {
    bit<16> next_header;
-   bit<48> t1; // timestamp 
-   bit<48> t2; // timestamp
-   bit<48> t3; // timestamp
+   bit<32> t1; // timestamp 
+   bit<32> t2; // timestamp
+   bit<32> t3; // timestamp
 }
 
-struct metadata {}
+struct metadata {
+    bit<32>  global_tstamp;
+    bit<32>  reference_tstamp;
+}
 
 
 struct headers {
@@ -124,22 +136,24 @@ control ingress(inout headers hdr,
                 in    psa_ingress_input_metadata_t  istd,
                 inout psa_ingress_output_metadata_t ostd)
 {
+    Register<bit<32>, bit<32>>(32w1) register_tstamp_ref;
+
 
     action do_forward_t1(PortId_t egress_port) {
         hdr.d6gint.setValid();
         hdr.d6gint.next_header = hdr.d6gmain.nextHeader;
         hdr.d6gmain.nextHeader = ETHERTYPE_D6GINT;
-        hdr.d6gint.t1 = (bit<48>) (bit<64>) istd.ingress_timestamp;
+        hdr.d6gint.t1 = meta.global_tstamp - meta.reference_tstamp;
         send_to_port(ostd, egress_port);
     }
     
     action do_forward_t2(PortId_t egress_port) {
-        hdr.d6gint.t2 = (bit<48>) (bit<64>) istd.ingress_timestamp;
+        hdr.d6gint.t2 = meta.global_tstamp - meta.reference_tstamp;
         send_to_port(ostd, egress_port);
     }
 
     action do_forward_t3(PortId_t egress_port) {
-        hdr.d6gint.t3 = (bit<48>) (bit<64>) istd.ingress_timestamp;
+        hdr.d6gint.t3 = meta.global_tstamp - meta.reference_tstamp;
         send_to_port(ostd, egress_port);
     }
 
@@ -206,6 +220,16 @@ control ingress(inout headers hdr,
         size = 100;
     }
     apply {
+        bit<32> zero;
+        zero = 0 ;
+        meta.global_tstamp = ((bit<64>) istd.ingress_timestamp)[47:16];
+
+        if(hdr.ethernet.ether_type == ETHERTYPE_CLOCK_SYNC) {
+            register_tstamp_ref.write(zero, meta.global_tstamp);
+            exit;
+        } else {
+            meta.reference_tstamp = register_tstamp_ref.read(zero);
+        }
         if (hdr.ipv4.isValid()) tbl_ipv4_fwd.apply();
         if (hdr.d6gmain.isValid()) tbl_d6g_fwd.apply();
     }

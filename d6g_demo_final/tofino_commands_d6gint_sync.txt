@@ -1,0 +1,53 @@
+ucli
+pm
+
+show
+
+port-add 49/- 40G NONE
+port-add 51/- 40G NONE
+port-add 53/- 40G NONE
+port-add 55/- 40G NONE
+port-add 56/- 40G NONE
+
+port-enb 49/-
+port-enb 51/- 
+port-enb 53/- 
+port-enb 55/- 
+port-enb 56/-
+
+show
+..
+exit
+bfrt_python
+bfrt
+
+
+
+d6gint_clock_sync.pipe.Ingress.tb_clock_sync.add_with_just_forward(count=0, port=156)
+
+d6gint_clock_sync.pipe.Ingress.tb_clock_sync.add_with_clock_sync_add_t1(count=1, port=156)
+
+d6gint_clock_sync.pipe.Ingress.tb_clock_sync.add_with_clock_sync_add_t3(count=3, port=16)
+
+
+
+d6gint_clock_sync.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_update_t2(serviceId=0, serviceId_mask=0, nextNF=10, port=188)
+
+
+d6gint_clock_sync.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_update_t2(serviceId=0, serviceId_mask=0, nextNF=20, port=32)
+
+
+
+
+
+d6gint_clock_sync.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_update_t3_and_send_report(serviceId=0, serviceId_mask=0, nextNF=21, port=156, mirror_session=100)
+
+
+d6gint_clock_sync.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_update_t3_and_send_report(serviceId=0, serviceId_mask=0, nextNF=11, port=8, mirror_session=100)
+
+
+mirror.cfg.add_with_normal(sid=100, direction='BOTH', session_enable=True, ucast_egress_port=16, ucast_egress_port_valid=1, max_pkt_len=43)
+mirror.cfg.dump
+
+
+

@@ -25,8 +25,13 @@ bfrt
 mirror.cfg.add_with_normal(sid=100, direction='BOTH', session_enable=True, ucast_egress_port=16, ucast_egress_port_valid=1, max_pkt_len=43)
 mirror.cfg.dump
 
-d6gint.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_instruct_and_forward(serviceId=0, serviceId_mask=0, nextNF=1, d6gint_count=1, port=188)
-d6gint.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_instruct_and_forward(serviceId=0, serviceId_mask=0, nextNF=2, d6gint_count=2, port=8)
+d6gint.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_instruct_and_forward(serviceId=0, serviceId_mask=0, nextNF=10, d6gint_count=1, port=188)
+d6gint.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_instruct_and_forward(serviceId=0, serviceId_mask=0, nextNF=21, d6gint_count=2, port=156)
+
+
+d6gint.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_instruct_and_forward(serviceId=0, serviceId_mask=0, nextNF=11, d6gint_count=2, port=8)
+d6gint.pipe.Ingress.tb_d6gint_handler.add_with_do_d6gint_instruct_and_forward(serviceId=0, serviceId_mask=0, nextNF=20, d6gint_count=1, port=32)
+
 d6gint.pipe.Egress.tb_d6gint_update.add_with_do_d6gint_update_t2(d6gint_count=1)
 d6gint.pipe.Egress.tb_d6gint_update.add_with_do_d6gint_update_t3_and_send_report(d6gint_count=2, mirror_session=100)
 d6gint.pipe.Egress.tb_handle_mirrored_packets.add_with_do_send_report_to_collector(mirror_session=100, src_mac="00:00:00:00:00:01", dst_mac="00:00:00:00:00:02")

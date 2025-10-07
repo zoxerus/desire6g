@@ -186,7 +186,11 @@ parser MyParser(packet_in packet,
 
     state parse_sdn_int {
         packet.extract(hdr.sdn_int);
-        transition accept;
+        transition select(hdr.sdn_int.original_ether_type) {
+            ETHERTYPE_D6G_MAIN    : parse_d6g_main;
+            ETHERTYPE_IPV4: parse_ipv4;
+            default: accept;
+        }
     }
 
     state parse_sdn_inc {
@@ -391,6 +395,9 @@ control MyEgress(inout headers hdr,
             else if ( APPLY_EP_INT_POP(meta, standard_metadata) ){
                 hdr.ethernet.ether_type = hdr.sdn_int.original_ether_type;
                 hdr.sdn_int.setInvalid();
+
+                if ( hdr.d6g_main.isValid() ) {
+                    hdr.d6g_main.nextNF = hdr.d6g_main.nextNF + 1 ; }
             } 
             
             else if ( APPLY_EP_INT_REPORT(meta, standard_metadata) ){

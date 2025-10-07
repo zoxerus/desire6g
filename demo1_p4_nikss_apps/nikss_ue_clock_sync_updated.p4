@@ -4,6 +4,7 @@
 typedef bit<48>  EthernetAddress;
 typedef bit<32>  IPv4Address;
 
+typedef bit<48> D6G_Timestamp_t;
 
 #define ETHERTYPE_VLAN 16w0x8100 // IEEE 802.1Q
 #define ETHERTYPE_IPV4 16w0x0800
@@ -11,6 +12,8 @@ typedef bit<32>  IPv4Address;
 #define ETHERTYPE_D6G 16w0xD6D6
 #define ETHERTYPE_D6GINT 16w0xDF01
 
+const bit<16> ETHERTYPE_CLOCK_SYNC = 0xBF02;
+const bit<16> ETHERTYPE_CLOCK_UPDATE = 0xBF03;
 
 struct empty_t {}
 
@@ -20,6 +23,19 @@ header ethernet_t {
     bit<16> ether_type;
 }
 
+
+header clock_sync_h {
+    bit<8> count;
+    D6G_Timestamp_t t0;
+    D6G_Timestamp_t t1;
+    D6G_Timestamp_t t2;
+    D6G_Timestamp_t t3;
+}
+
+
+header clock_update_h {
+    D6G_Timestamp_t propagation_delay;
+}
 
 header ipv4_t {
     bit<4>  version;
@@ -47,16 +63,19 @@ header d6gmain_t {
 
 header d6gint_t {
    bit<16> next_header;
-   bit<48> t1; // timestamp 
-   bit<48> t2; // timestamp
-   bit<48> t3; // timestamp
+   D6G_Timestamp_t t1; // timestamp 
+   D6G_Timestamp_t t2; // timestamp
+   D6G_Timestamp_t t3; // timestamp
 }
 
-struct metadata {}
+struct metadata {
+    D6G_Timestamp_t  global_tstamp;
+}
 
 
 struct headers {
     ethernet_t       ethernet;
+    clock_sync_h     clock_sync;
     d6gmain_t        d6gmain;
     d6gint_t         d6gint;
     ipv4_t           ipv4;
@@ -74,8 +93,14 @@ parser IngressParserImpl(packet_in buffer,
         transition select(parsed_hdr.ethernet.ether_type) {
             ETHERTYPE_IPV4: parse_ipv4;
             ETHERTYPE_D6G: parse_d6gmain;
+            ETHERTYPE_CLOCK_SYNC: parse_clock_sync;
             default: accept;
         }
+    }
+
+    state parse_clock_sync {
+        buffer.extract(parsed_hdr.clock_sync);
+        transition accept;
     }
 
     state parse_ipv4 {
@@ -106,16 +131,13 @@ parser EgressParserImpl(packet_in buffer,
                         in empty_t clone_e2e_meta)
 {
     state start {
-        buffer.extract(parsed_hdr.ethernet);
-        transition select(parsed_hdr.ethernet.ether_type) {
-            0x0800: parse_ipv4;
-            default: accept;
-        }
-    }
-
-    state parse_ipv4 {
-        buffer.extract(parsed_hdr.ipv4);
         transition accept;
+
+        // buffer.extract(parsed_hdr.ethernet);
+        // transition select(parsed_hdr.ethernet.ether_type) {
+        //     0x0800: parse_ipv4;
+        //     default: accept;
+        // }
     }
 }
 
@@ -124,22 +146,21 @@ control ingress(inout headers hdr,
                 in    psa_ingress_input_metadata_t  istd,
                 inout psa_ingress_output_metadata_t ostd)
 {
-
     action do_forward_t1(PortId_t egress_port) {
         hdr.d6gint.setValid();
         hdr.d6gint.next_header = hdr.d6gmain.nextHeader;
         hdr.d6gmain.nextHeader = ETHERTYPE_D6GINT;
-        hdr.d6gint.t1 = (bit<48>) (bit<64>) istd.ingress_timestamp;
+        hdr.d6gint.t1 = meta.global_tstamp;
         send_to_port(ostd, egress_port);
     }
     
     action do_forward_t2(PortId_t egress_port) {
-        hdr.d6gint.t2 = (bit<48>) (bit<64>) istd.ingress_timestamp;
+        hdr.d6gint.t2 = meta.global_tstamp;
         send_to_port(ostd, egress_port);
     }
 
     action do_forward_t3(PortId_t egress_port) {
-        hdr.d6gint.t3 = (bit<48>) (bit<64>) istd.ingress_timestamp;
+        hdr.d6gint.t3 = meta.global_tstamp;
         send_to_port(ostd, egress_port);
     }
 
@@ -171,10 +192,8 @@ control ingress(inout headers hdr,
         send_to_port(ostd, egress_port);
     }
 
-
     table tbl_d6g_fwd {
         key = {
-            hdr.d6gmain.serviceId : exact;
             hdr.d6gmain.nextNF:     exact;
         }
         actions = { do_remove_d6g_header; 
@@ -205,7 +224,58 @@ control ingress(inout headers hdr,
         default_action = NoAction;
         size = 100;
     }
+
+    action add_t0(PortId_t egress_port){
+        hdr.clock_sync.t0 = meta.global_tstamp;
+        hdr.clock_sync.count = hdr.clock_sync.count + 1;
+        send_to_port(ostd, egress_port);
+    }
+
+    action add_t1(PortId_t egress_port){
+        hdr.clock_sync.t1 = meta.global_tstamp;
+        hdr.clock_sync.count = hdr.clock_sync.count + 1;
+        send_to_port(ostd, egress_port);
+    }
+
+    action add_t2(PortId_t egress_port){
+        hdr.clock_sync.t2 = meta.global_tstamp;
+        hdr.clock_sync.count = hdr.clock_sync.count + 1;
+        send_to_port(ostd, egress_port);
+    }
+
+    action add_t3(PortId_t egress_port){
+        hdr.clock_sync.t3 = meta.global_tstamp;
+        hdr.clock_sync.count = hdr.clock_sync.count + 1;
+        send_to_port(ostd, egress_port);
+    }
+
+    action just_forward(PortId_t egress_port){
+        send_to_port(ostd, egress_port);
+    }
+
+    table tbl_clock_sync {
+        key = {
+            hdr.clock_sync.count: exact;
+        }
+        actions = {
+            add_t0; 
+            add_t1; 
+            add_t2; 
+            add_t3;
+            just_forward;
+            NoAction;
+            }
+        default_action = NoAction;
+        size = 32;
+    }
+
     apply {
+        meta.global_tstamp = ((bit<64>) istd.ingress_timestamp)[47:0];
+
+        if (hdr.clock_sync.isValid()) {
+            tbl_clock_sync.apply();
+        }
+
         if (hdr.ipv4.isValid()) tbl_ipv4_fwd.apply();
         if (hdr.d6gmain.isValid()) tbl_d6g_fwd.apply();
     }
