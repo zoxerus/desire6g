@@ -122,6 +122,7 @@ control MyIngress(inout headers hdr,
         }
 
         actions = {
+            ac_set_output_port;
             drop;
             NoAction;
         }
