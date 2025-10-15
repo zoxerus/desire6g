@@ -64,11 +64,14 @@ class MyTopo(Topo):
         import os.path
 
         # 2a. Check if the path exists AND is a file
+        print('checking bmv2 cudu')
         if os.path.isfile(json_bmv2_cudu):
             print(f"'{json_bmv2_cudu}' is an existing file.")
         else:
             print(f"'{json_bmv2_cudu}' does not exist or is not a file.")
             
+            
+        print('checking bmv2 netswitch')
         if os.path.isfile(json_netswitch):
             print(f"'{json_netswitch}' is an existing file.")
         else:
