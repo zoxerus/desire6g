@@ -20,6 +20,7 @@ PATH_BEHAVIORAL="/usr/bin/simple_switch"
 # path to the network and collector siwtches
 PATH_NETSW="./p4app/p4out/inc_switch.json"
 
+PATH_BMV2_CUDU="./p4app/p4out/bmv2_du_cu_latency.json"
 
 # clear the mininet cash
 sudo mn -c
@@ -30,7 +31,7 @@ set -m
 
 # start the relevant mininet in the background
 echo -e "\n\nStarting Mininet\n\n"
-sudo python3 $(pwd)/mininet/mynet.py --behavioral-exe "$PATH_BEHAVIORAL" --json-net "$PATH_NETSW" --json-collector "./p4app/p4out/dpac.json" &
+sudo python3 $(pwd)/mininet/mynet.py --behavioral-exe "$PATH_BEHAVIORAL" --json-net "$PATH_NETSW" --json-bmv2-cudu "$PATH_BMV2_CU_DU" --json-collector "./p4app/p4out/dpac.json" &
 sleep 2
 
 
@@ -68,9 +69,11 @@ do
     # The '>' redirects the filtered output to the new destination file.
     grep -v -e '^[[:space:]]*$' -e '^#' "$file" > "$dest_file"
 
+    base_port_number=59000
+    thrift_port= $((base_port_number + number))
     
     echo -e "\n\n\nRunning Commands in $filename_only: \n"
-    python3 $PATH_CLI --thrift-port 909$number < $dest_file
+    python3 $PATH_CLI --thrift-port $thrift_port < $dest_file
 
   fi
 done

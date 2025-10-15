@@ -52,14 +52,33 @@ class MyTopo(Topo):
     "Single switch connected to n (< 256) hosts."
     def __init__(self, sw_path, 
                  json_collector,
-                 json_netswitch, thrift_port, pcap_dump, enable_debugger, **opts):
+                 json_netswitch,
+                 json_bmv2_cudu, 
+                 thrift_port, pcap_dump, enable_debugger, **opts):
         # Initialize topology and  default options
         Topo.__init__(self, **opts)
+        
+        
+        s100 = self.addSwitch('s100',
+                                sw_path = sw_path,
+                                json_path = json_bmv2_cudu,
+                                thrift_port = 59100,
+                                pcap_dump = pcap_dump,
+                                enable_debugger = enable_debugger
+                                )
+        
+        s101 = self.addSwitch('s101',
+                                sw_path = sw_path,
+                                json_path = json_bmv2_cudu,
+                                thrift_port = 59101,
+                                pcap_dump = pcap_dump,
+                                enable_debugger = enable_debugger
+                                )
 
         s1 = self.addSwitch('s1',
                                 sw_path = sw_path,
                                 json_path = json_netswitch,
-                                thrift_port = 9091,
+                                thrift_port = 59001,
                                 pcap_dump = pcap_dump,
                                 enable_debugger = enable_debugger
                                 )
@@ -68,7 +87,7 @@ class MyTopo(Topo):
         s2 = self.addSwitch('s2',
                                 sw_path = sw_path,
                                 json_path = json_netswitch,
-                                thrift_port = 9092,
+                                thrift_port = 59002,
                                 pcap_dump = pcap_dump,
                                 enable_debugger = enable_debugger
                                 )
@@ -76,7 +95,7 @@ class MyTopo(Topo):
         s3 = self.addSwitch('s3',
                             sw_path = sw_path,
                             json_path = json_netswitch,
-                            thrift_port = 9093,
+                            thrift_port = 59003,
                             pcap_dump = pcap_dump,
                             enable_debugger = enable_debugger
                             )
@@ -84,7 +103,7 @@ class MyTopo(Topo):
         s4 = self.addSwitch('s4',
                             sw_path = sw_path,
                             json_path = json_netswitch,
-                            thrift_port = 9094,
+                            thrift_port = 59004,
                             pcap_dump = pcap_dump,
                             enable_debugger = enable_debugger
                             )
@@ -115,7 +134,8 @@ class MyTopo(Topo):
         #     \  /
         #     [S2]
 
-
+        self.addLink(s100, s101, 2, 1)
+        self.addLink(s100, s101, 3, 2)
         self.addLink(s1, s2, 2, 1)
         self.addLink(s2, s4, 4, 2)
         self.addLink(s1, s3, 3, 1)
