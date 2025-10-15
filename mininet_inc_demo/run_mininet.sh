@@ -70,7 +70,7 @@ do
     grep -v -e '^[[:space:]]*$' -e '^#' "$file" > "$dest_file"
 
     base_port_number=59000
-    thrift_port= $((base_port_number + number))
+    thrift_port=$((base_port_number + number))
     
     echo -e "\n\n\nRunning Commands in $filename_only: \n"
     python3 $PATH_CLI --thrift-port $thrift_port < $dest_file
