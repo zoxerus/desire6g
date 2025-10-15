@@ -61,21 +61,7 @@ class MyTopo(Topo):
         Topo.__init__(self, **opts)
         
         
-        s10 = self.addSwitch('s10',
-                                sw_path = sw_path,
-                                json_path = json_bmv2_cudu,
-                                thrift_port = 59010,
-                                pcap_dump = pcap_dump,
-                                enable_debugger = enable_debugger
-                                )
-        
-        s11 = self.addSwitch('s11',
-                                sw_path = sw_path,
-                                json_path = json_bmv2_cudu,
-                                thrift_port = 59011,
-                                pcap_dump = pcap_dump,
-                                enable_debugger = enable_debugger
-                                )
+
 
         s1 = self.addSwitch('s1',
                                 sw_path = sw_path,
@@ -109,6 +95,22 @@ class MyTopo(Topo):
                             pcap_dump = pcap_dump,
                             enable_debugger = enable_debugger
                             )
+        
+        s5 = self.addSwitch('s5',
+                                sw_path = sw_path,
+                                json_path = json_bmv2_cudu,
+                                thrift_port = 59005,
+                                pcap_dump = pcap_dump,
+                                enable_debugger = enable_debugger
+                                )
+        
+        s6 = self.addSwitch('s6',
+                                sw_path = sw_path,
+                                json_path = json_bmv2_cudu,
+                                thrift_port = 59006,
+                                pcap_dump = pcap_dump,
+                                enable_debugger = enable_debugger
+                                )
 
 
         # h1 = self.addHost('h1',
@@ -136,9 +138,9 @@ class MyTopo(Topo):
         #     \  /
         #     [S2]
 
-        self.addLink(s10, s11, 2, 1)
-        self.addLink(s10, s11, 3, 2)
-        self.addLink(s11, s3, 33, 33)
+        self.addLink(s5, s6, 2, 1)
+        self.addLink(s5, s6, 3, 2)
+        self.addLink(s6, s3, 33, 33)
         
         self.addLink(s1, s2, 2, 1)
         self.addLink(s2, s4, 4, 2)
