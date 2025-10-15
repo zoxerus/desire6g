@@ -61,7 +61,19 @@ class MyTopo(Topo):
         Topo.__init__(self, **opts)
         
         
+        import os.path
 
+        # 2a. Check if the path exists AND is a file
+        if os.path.isfile(json_bmv2_cudu):
+            print(f"'{json_bmv2_cudu}' is an existing file.")
+        else:
+            print(f"'{json_bmv2_cudu}' does not exist or is not a file.")
+            
+        if os.path.isfile(json_netswitch):
+            print(f"'{json_netswitch}' is an existing file.")
+        else:
+            print(f"'{json_netswitch}' does not exist or is not a file.")
+            
 
         s1 = self.addSwitch('s1',
                                 sw_path = sw_path,
