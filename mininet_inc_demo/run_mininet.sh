@@ -31,7 +31,7 @@ set -m
 
 # start the relevant mininet in the background
 echo -e "\n\nStarting Mininet\n\n"
-sudo python3 $(pwd)/mininet/mynet.py --behavioral-exe "$PATH_BEHAVIORAL" --json-net "$PATH_NETSW" --json-bmv2-cudu "$PATH_BMV2_CU_DU" --json-collector "./p4app/p4out/dpac.json" &
+sudo python3 $(pwd)/mininet/mynet.py --behavioral-exe "$PATH_BEHAVIORAL" --json-net "$PATH_NETSW" --json-bmv2-cudu "$PATH_BMV2_CUDU" --json-collector "./p4app/p4out/dpac.json" &
 sleep 2
 
 
