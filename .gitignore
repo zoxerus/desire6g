@@ -4,3 +4,5 @@ mininet*
 !mininet_inc_demo/mininet
 figures
 telemetry
+.vscode
+.venv
