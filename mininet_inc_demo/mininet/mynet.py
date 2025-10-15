@@ -61,18 +61,18 @@ class MyTopo(Topo):
         Topo.__init__(self, **opts)
         
         
-        s100 = self.addSwitch('s100',
+        s10 = self.addSwitch('s10',
                                 sw_path = sw_path,
                                 json_path = json_bmv2_cudu,
-                                thrift_port = 59100,
+                                thrift_port = 59010,
                                 pcap_dump = pcap_dump,
                                 enable_debugger = enable_debugger
                                 )
         
-        s101 = self.addSwitch('s101',
+        s11 = self.addSwitch('s11',
                                 sw_path = sw_path,
                                 json_path = json_bmv2_cudu,
-                                thrift_port = 59101,
+                                thrift_port = 59011,
                                 pcap_dump = pcap_dump,
                                 enable_debugger = enable_debugger
                                 )
@@ -136,9 +136,9 @@ class MyTopo(Topo):
         #     \  /
         #     [S2]
 
-        self.addLink(s100, s101, 2, 1)
-        self.addLink(s100, s101, 3, 2)
-        self.addLink(s101, s3, 33, 33)
+        self.addLink(s10, s11, 2, 1)
+        self.addLink(s10, s11, 3, 2)
+        self.addLink(s11, s3, 33, 33)
         
         self.addLink(s1, s2, 2, 1)
         self.addLink(s2, s4, 4, 2)
