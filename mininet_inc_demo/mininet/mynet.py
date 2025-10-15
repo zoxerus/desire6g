@@ -35,6 +35,8 @@ parser.add_argument('--thrift-port', help='Thrift server port for table updates'
 parser.add_argument('--json-collector', help='Path to JSON config file',
                     type=str, action="store", required=True)
 
+parser.add_argument('--json-bmv2-cudu', help='Path to JSON config file',
+                    type=str, action="store", required=True)
 
 parser.add_argument('--json-netswitch', help='Path to JSON config file',
                     type=str, action="store", required=True)
@@ -143,13 +145,14 @@ class MyTopo(Topo):
         
 def main():
 
-    topo = MyTopo(args.behavioral_exe,
-                            args.json_collector,
-                            args.json_netswitch,
-                            args.thrift_port,
-                            args.pcap_dump,
-                            args.debugger
-                            )
+    topo = MyTopo( sw_path         = args.behavioral_exe,
+                   json_collector  = args.json_collector,
+                   json_netswitch  = args.json_netswitch,
+                   json_bmv2_cudu  = args.json_bmv2_cudu,
+                   thrift_port     = args.thrift_port,
+                   pcap_dump       = args.pcap_dump,
+                   enable_debugger = args.debugger
+                   )
     
     net = Mininet(topo = topo,
                   host = P4Host,
