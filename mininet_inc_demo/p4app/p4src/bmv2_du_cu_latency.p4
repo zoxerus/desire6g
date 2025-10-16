@@ -118,7 +118,7 @@ control MyIngress(inout headers hdr,
     table tb_forward_packets {
         key = {            
             standard_metadata.ingress_port: exact;
-            hdr.ipv4.dst_ip: lpm;
+            hdr.ethernet.src_mac: ternary;
         }
 
         actions = {

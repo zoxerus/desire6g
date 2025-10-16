@@ -1,12 +1,11 @@
-# This is the first switch in the SDN domain,
-# we attach the input physical interface to it to process incoming packets
 port_add eth0 1
 port_add eth1 4
-table_add  MyIngress.tb_forward_packets MyIngress.ac_set_output_port 1 192.168.60.40/32 => 4
-table_add  MyIngress.tb_forward_packets MyIngress.ac_set_output_port 1 192.168.70.40/32 => 4
+table_add  MyIngress.tb_forward_packets MyIngress.ac_set_output_port 1 50:7c:6f:57:6c:b0&&&FFFFFFFFFFFF => 4
+table_add  MyIngress.tb_forward_packets MyIngress.ac_set_output_port 1 d2:f3:57:16:2d:08&&&FFFFFFFFFFFF => 2
+table_add  MyIngress.tb_forward_packets MyIngress.ac_set_output_port 3 d2:f3:57:16:2d:08&&&FFFFFFFFFFFF => 4
 
-table_add  MyIngress.tb_forward_packets MyIngress.ac_set_output_port 4 192.168.60.10/32 => 1
-table_add  MyIngress.tb_forward_packets MyIngress.ac_set_output_port 4 192.168.70.10/32 => 1
+table_add  MyIngress.tb_forward_packets MyIngress.ac_set_output_port 4 00:00:00:00:00:00&&&000000000000 => 1
+
 
 
       

@@ -45,7 +45,8 @@ PREFIX="switch"
 SUFFIX=".sh"
 
 echo "Searching for files in '${SOURCE_COMMANDS_DIR}' with prefix '${PREFIX}'..."
-
+rm -r "$OUTPUT_COMMANDS_DIR"
+mkdir "$OUTPUT_COMMANDS_DIR
 for file in "${SOURCE_COMMANDS_DIR}/${PREFIX}"*"${SUFFIX}"
 do
   # This is a safety check to ensure we only process actual files
